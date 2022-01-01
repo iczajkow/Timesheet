@@ -1,21 +1,18 @@
-import { Modal } from "antd";
 import React from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import TimesheetCalendar from "./components/TimesheetCalendar";
-import { closeModal, openModal, selectModalOpened } from "./timesheetSlice";
+import { selectWorkdays, triggerDay } from "./timesheetSlice";
 
 const Timesheet = () => {
-  const modalOpen = useAppSelector(selectModalOpened);
+  const workdays = useAppSelector(selectWorkdays);
   const dispatch = useAppDispatch();
 
   return (
     <div>
-      <button onClick={() => dispatch(openModal())}></button>
-      <TimesheetCalendar />
-      <Modal
-        visible={modalOpen}
-        onCancel={() => dispatch(closeModal())}
-      ></Modal>
+      <TimesheetCalendar
+        workdays={workdays}
+        onDayTrigger={(value) => dispatch(triggerDay(value))}
+      />
     </div>
   );
 };
