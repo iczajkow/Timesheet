@@ -1,13 +1,16 @@
 import { AppThunk, RootState } from "./../../app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WorkdaysState, WorkDayStatus } from "./model";
+import { CalendarView, WorkdaysState, WorkDayStatus } from "./model";
 import timesheetService from "./timesheetService";
+import moment from "moment";
 export interface TimesheetState {
   workdays: WorkdaysState;
+  selectedDate: string;
 }
 
 const initialState: TimesheetState = {
   workdays: {},
+  selectedDate: moment().format()
 };
 
 export const timesheetSlice = createSlice({
@@ -17,11 +20,15 @@ export const timesheetSlice = createSlice({
     setWorkdays: (state, action: PayloadAction<WorkdaysState>) => {
       state.workdays = action.payload;
     },
+    setSelectedDate: (state, action: PayloadAction<string>) => {
+      state.selectedDate = action.payload;
+    }
   },
 });
 
 export const selectWorkdays = (state: RootState) => state.timesheet.workdays;
-export const { setWorkdays } = timesheetSlice.actions;
+export const selectSelectedDate = (state: RootState) => state.timesheet.selectedDate;
+export const { setWorkdays, setSelectedDate } = timesheetSlice.actions;
 
 export const loadWorkdays = (): AppThunk => (dispatch) => {
   const workdays = timesheetService.readWorkdays();
