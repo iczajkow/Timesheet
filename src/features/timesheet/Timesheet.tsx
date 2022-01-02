@@ -12,6 +12,7 @@ import {
 import styles from "./Timesheet.module.css";
 import timesheetCSVGenerator from "./timesheetCSVGenerator";
 import moment from "moment";
+import { downloadFile } from "../../utils/downloadFile";
 
 const Timesheet = () => {
   const workdays = useAppSelector(selectWorkdays);
@@ -25,9 +26,9 @@ const Timesheet = () => {
   const handleGenerateTimesheet = () => {
     const from = moment(selectedDate).clone().startOf("month");
     const to = moment(selectedDate).clone().endOf("month");
-    console.log({ from: from.format(), to: to.format() });
     const csv = timesheetCSVGenerator.generateCSV(workdays, from, to);
-    console.log(csv);
+    const fileName = `Timesheet-${from.format("MM-YYYY")}.csv`;
+    downloadFile(fileName, csv);
   };
 
   return (
