@@ -15,9 +15,8 @@ const DateCell =
     const worked = currentState === WorkDayStatus.Worked;
 
     return (
-      <div>
+      <div onClick={() => onDayTrigger(value)} className={styles.cellWrapper}>
         <Button
-          onClick={() => onDayTrigger(value)}
           className={worked ? styles.cellWorked : styles.cellHoliday}
           type="link"
           size="small"

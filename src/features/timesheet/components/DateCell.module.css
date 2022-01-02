@@ -5,3 +5,7 @@
 .cellHoliday {
   color: #cf1322 !important;
 }
+
+.cellWrapper {
+  height: 100%;
+}

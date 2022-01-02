@@ -1,6 +1,7 @@
 import { AppThunk, RootState } from "./../../app/store";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WorkdaysState, WorkDayStatus } from "./model";
+import timesheetService from "./timesheetService";
 export interface TimesheetState {
   workdays: WorkdaysState;
 }
@@ -22,6 +23,11 @@ export const timesheetSlice = createSlice({
 export const selectWorkdays = (state: RootState) => state.timesheet.workdays;
 export const { setWorkdays } = timesheetSlice.actions;
 
+export const loadWorkdays = (): AppThunk => (dispatch) => {
+  const workdays = timesheetService.readWorkdays();
+  dispatch(setWorkdays(workdays));
+};
+
 export const triggerDay =
   (day: moment.Moment): AppThunk =>
   (dispatch, getState) => {
@@ -33,6 +39,7 @@ export const triggerDay =
     } else {
       workdays = { ...workdays, [key]: WorkDayStatus.Worked };
     }
+    timesheetService.saveWorkdays(workdays);
     dispatch(setWorkdays(workdays));
   };
 

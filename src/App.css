@@ -1,4 +1,8 @@
+.ant-picker-calendar-header .ant-picker-calendar-mode-switch {
+  display: none;
+}
 
 .main-content {
-  margin: 24px;
+  padding: 20px;
+  min-height: 100vh;
 }

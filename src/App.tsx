@@ -4,18 +4,16 @@ import "./App.css";
 import Timesheet from "./features/timesheet/Timesheet";
 import { Layout } from "antd";
 
-const { Header, Footer, Content } = Layout;
+const { Content } = Layout;
 
 function App() {
   return (
     <Layout>
-      <Header />
       <Content>
         <div className="main-content">
           <Timesheet />
         </div>
       </Content>
-      <Footer />
     </Layout>
   );
 }
